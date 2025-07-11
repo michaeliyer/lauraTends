@@ -198,6 +198,27 @@ class CocktailDatabase {
       };
     });
   }
+
+  async getCocktail(id) {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject("Database not initialized");
+        return;
+      }
+
+      const transaction = this.db.transaction([this.storeName], "readonly");
+      const store = transaction.objectStore(this.storeName);
+      const request = store.get(id);
+
+      request.onsuccess = () => {
+        resolve(request.result);
+      };
+
+      request.onerror = () => {
+        reject("Failed to get cocktail");
+      };
+    });
+  }
 }
 
 // Export for use in other files

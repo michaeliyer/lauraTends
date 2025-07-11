@@ -34,6 +34,40 @@ body {
   animation: fadeInDown 1s ease-out;
 }
 
+.header-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn.active {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
 .title {
   font-size: 3rem;
   color: #fff;
@@ -281,6 +315,59 @@ body {
   animation: slideInRight 1s ease-out;
 }
 
+/* Selection Controls */
+.selection-controls {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selection-info {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.selection-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.selection-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.selection-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.selection-btn.danger {
+  background: rgba(220, 53, 69, 0.3);
+  border-color: rgba(220, 53, 69, 0.5);
+}
+
+.selection-btn.danger:hover {
+  background: rgba(220, 53, 69, 0.5);
+}
+
 .gallery-section h2 {
   color: #fff;
   margin-bottom: 20px;
@@ -404,6 +491,53 @@ body {
   animation: cardFloat 0.6s ease-out;
 }
 
+/* Card Selection */
+.card-selection {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.selection-mode .card-selection {
+  opacity: 1;
+}
+
+.card-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+  transform: scale(1.2);
+}
+
+.card-checkbox:checked {
+  animation: checkboxPulse 0.3s ease;
+}
+
+@keyframes checkboxPulse {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.selection-mode .cocktail-card {
+  cursor: pointer;
+}
+
+.selection-mode .cocktail-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
 @keyframes cardFloat {
   0% {
     opacity: 0;
@@ -441,64 +575,6 @@ body {
 .cocktail-card:hover .card-image {
   filter: brightness(1.1) contrast(1.2) saturate(1.1);
   transform: scale(1.05);
-}
-
-/* Fun Overlay Effects */
-.card-overlay {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.05)
-  );
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-}
-
-.cocktail-card:hover .card-overlay {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.1)
-  );
-}
-
-/* Fun Delete Button */
-.delete-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(255, 107, 107, 0.8);
-  border: none;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  transform: scale(0.8);
-  backdrop-filter: blur(5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.delete-btn::before {
-  content: "🗑️";
-  font-size: 0.9rem;
-}
-
-.cocktail-card:hover .delete-btn {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.delete-btn:hover {
-  background: rgba(255, 107, 107, 1);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
 
 /* Fun Content Styling */
@@ -629,6 +705,25 @@ body {
 
   .container {
     padding: 10px;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .control-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .selection-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .selection-actions {
+    justify-content: center;
   }
 }
 

@@ -13,6 +13,23 @@
         <p class="subtitle">
           Half the alcohol, double the fun, quadruple the virtue
         </p>
+        <div class="header-controls">
+          <button type="button" id="toggleSelection" class="control-btn">
+            📋 Selection Mode
+          </button>
+          <button type="button" id="exportBtn" class="control-btn">
+            📤 Export
+          </button>
+          <button type="button" id="importBtn" class="control-btn">
+            📥 Import
+          </button>
+          <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            style="display: none"
+          />
+        </div>
       </header>
 
       <main class="main-content">
@@ -125,6 +142,38 @@
         <section class="gallery-section">
           <!-- <h2>Your Cocktails</h2> -->
 
+          <div
+            id="selectionControls"
+            class="selection-controls"
+            style="display: none"
+          >
+            <div class="selection-info">
+              <span id="selectionCount">0 selected</span>
+            </div>
+            <div class="selection-actions">
+              <button type="button" id="selectAllBtn" class="selection-btn">
+                ☑️ Select All
+              </button>
+              <button type="button" id="deselectAllBtn" class="selection-btn">
+                ☐ Deselect All
+              </button>
+              <button
+                type="button"
+                id="exportSelectedBtn"
+                class="selection-btn"
+              >
+                📤 Export Selected
+              </button>
+              <button
+                type="button"
+                id="deleteSelectedBtn"
+                class="selection-btn danger"
+              >
+                🗑️ Delete Selected
+              </button>
+            </div>
+          </div>
+
           <div id="cocktailGallery" class="cocktail-gallery grid-layout">
             <!-- Cocktails will be dynamically added here -->
           </div>
@@ -147,11 +196,11 @@
     <!-- Cocktail Card Template -->
     <template id="cocktailTemplate">
       <div class="cocktail-card">
+        <div class="card-selection">
+          <input type="checkbox" class="card-checkbox" data-id="" />
+        </div>
         <div class="card-image-container">
           <img class="card-image" src="" alt="" />
-          <div class="card-overlay">
-            <button class="delete-btn" data-id="">×</button>
-          </div>
         </div>
         <div class="card-content">
           <h3 class="card-title"></h3>
