@@ -181,6 +181,13 @@ class CocktailGalleryApp {
         this.updateSelectionCount();
       }
     });
+
+    // Prevent card clicks from interfering with checkbox clicks
+    cocktailGallery.addEventListener("click", (e) => {
+      if (e.target.classList.contains("card-checkbox")) {
+        e.stopPropagation();
+      }
+    });
   }
 
   async handleFormSubmission() {

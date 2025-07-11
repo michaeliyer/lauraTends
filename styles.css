@@ -496,9 +496,10 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 10;
+  z-index: 20;
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: auto;
 }
 
 .selection-mode .card-selection {
@@ -511,6 +512,9 @@ body {
   cursor: pointer;
   accent-color: #667eea;
   transform: scale(1.2);
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
 }
 
 .card-checkbox:checked {
@@ -531,6 +535,14 @@ body {
 
 .selection-mode .cocktail-card {
   cursor: pointer;
+}
+
+.selection-mode .cocktail-card .card-selection {
+  pointer-events: auto;
+}
+
+.selection-mode .cocktail-card .card-checkbox {
+  pointer-events: auto;
 }
 
 .selection-mode .cocktail-card:hover {
