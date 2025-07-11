@@ -188,6 +188,13 @@ class CocktailGalleryApp {
         e.stopPropagation();
       }
     });
+
+    // Image expansion functionality
+    cocktailGallery.addEventListener("click", (e) => {
+      if (e.target.classList.contains("card-image")) {
+        this.expandImage(e.target.src, e.target.alt);
+      }
+    });
   }
 
   async handleFormSubmission() {
@@ -781,6 +788,113 @@ class CocktailGalleryApp {
     URL.revokeObjectURL(url);
   }
 
+  expandImage(imageSrc, imageAlt) {
+    // Create modal overlay
+    const modal = document.createElement("div");
+    modal.className = "image-expansion-modal";
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      animation: fadeIn 0.3s ease-out;
+    `;
+
+    // Create close button
+    const closeBtn = document.createElement("button");
+    closeBtn.innerHTML = "×";
+    closeBtn.className = "image-close-btn";
+    closeBtn.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      z-index: 3001;
+    `;
+
+    // Create image container
+    const imageContainer = document.createElement("div");
+    imageContainer.style.cssText = `
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+      animation: slideInUp 0.3s ease-out;
+    `;
+
+    // Create expanded image
+    const expandedImage = document.createElement("img");
+    expandedImage.src = imageSrc;
+    expandedImage.alt = imageAlt;
+    expandedImage.style.cssText = `
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    `;
+
+    // Add hover effects to close button
+    closeBtn.addEventListener("mouseenter", () => {
+      closeBtn.style.background = "rgba(255, 255, 255, 0.3)";
+      closeBtn.style.borderColor = "rgba(255, 255, 255, 0.5)";
+      closeBtn.style.transform = "scale(1.1)";
+    });
+
+    closeBtn.addEventListener("mouseleave", () => {
+      closeBtn.style.background = "rgba(255, 255, 255, 0.2)";
+      closeBtn.style.borderColor = "rgba(255, 255, 255, 0.3)";
+      closeBtn.style.transform = "scale(1)";
+    });
+
+    // Close modal function
+    const closeModal = () => {
+      modal.style.animation = "fadeOut 0.3s ease-out";
+      setTimeout(() => {
+        if (modal.parentNode) {
+          document.body.removeChild(modal);
+        }
+      }, 300);
+    };
+
+    // Event listeners
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Keyboard support
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    // Assemble modal
+    imageContainer.appendChild(expandedImage);
+    modal.appendChild(closeBtn);
+    modal.appendChild(imageContainer);
+    document.body.appendChild(modal);
+  }
+
   promptForFileName(defaultName) {
     return new Promise((resolve) => {
       // Create modal overlay
@@ -1103,6 +1217,20 @@ const additionalStyles = `
     @keyframes slideInUp {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .image-expansion-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 3000;
+    }
+    
+    .image-close-btn:hover {
+        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(1.1) !important;
     }
     
     .empty-state {
