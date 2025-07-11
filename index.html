@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LauraTender</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title" id="toggleUpload">🍸 Laura's Cocktail Gallery 🍸</h1>
+        <p class="subtitle">
+          Half the alcohol, double the fun, quadruple the virtue
+        </p>
+      </header>
+
+      <main class="main-content">
+        <section class="upload-section" id="uploadSection">
+          <div class="upload-form-container" id="uploadFormContainer">
+            <div class="form-header">
+              <button type="button" id="closeUpload" class="close-btn">
+                ×
+              </button>
+            </div>
+
+            <div class="form-controls">
+              <div class="layout-controls">
+                <button
+                  type="button"
+                  class="layout-btn active"
+                  data-layout="grid"
+                >
+                  📐 Grid
+                </button>
+                <button type="button" class="layout-btn" data-layout="random">
+                  🎲 Random
+                </button>
+                <button type="button" class="layout-btn" data-layout="masonry">
+                  🧱 Masonry
+                </button>
+                <button type="button" class="layout-btn" data-layout="polaroid">
+                  📷 Polaroid
+                </button>
+              </div>
+
+              <div class="theme-controls">
+                <button
+                  type="button"
+                  class="theme-btn active"
+                  data-theme="default"
+                >
+                  🎨 Default
+                </button>
+                <button type="button" class="theme-btn" data-theme="fun">
+                  🌈 Fun
+                </button>
+                <button type="button" class="theme-btn" data-theme="vintage">
+                  📜 Vintage
+                </button>
+                <button type="button" class="theme-btn" data-theme="neon">
+                  ✨ Neon
+                </button>
+              </div>
+            </div>
+
+            <form id="uploadForm" class="upload-form">
+              <div class="form-group">
+                <label for="cocktailName">Cocktail Name:</label>
+                <input
+                  type="text"
+                  id="cocktailName"
+                  name="cocktailName"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="ingredients">Ingredients:</label>
+                <textarea
+                  id="ingredients"
+                  name="ingredients"
+                  placeholder="List the ingredients..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="imageFile">Photo:</label>
+                <div class="image-input-container">
+                  <div class="input-option">
+                    <input
+                      type="file"
+                      id="imageFile"
+                      name="imageFile"
+                      accept="image/*"
+                    />
+                    <span class="input-label">Upload File</span>
+                  </div>
+                  <div class="input-divider">OR</div>
+                  <div class="input-option">
+                    <input
+                      type="url"
+                      id="imageUrl"
+                      name="imageUrl"
+                      placeholder="https://example.com/image.jpg"
+                    />
+                    <span class="input-label">Image URL</span>
+                    <small class="url-hint"
+                      >Direct image links work best (ends with .jpg, .png,
+                      etc.)</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                <span class="btn-text">Add Cocktail</span>
+                <div class="loading-spinner"></div>
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="gallery-section">
+          <!-- <h2>Your Cocktails</h2> -->
+
+          <div id="cocktailGallery" class="cocktail-gallery grid-layout">
+            <!-- Cocktails will be dynamically added here -->
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Follow us on
+          <a
+            href="https://instagram.com/christine.iyer/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Instagram</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <!-- Cocktail Card Template -->
+    <template id="cocktailTemplate">
+      <div class="cocktail-card">
+        <div class="card-image-container">
+          <img class="card-image" src="" alt="" />
+          <div class="card-overlay">
+            <button class="delete-btn" data-id="">×</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title"></h3>
+          <p class="card-ingredients"></p>
+        </div>
+      </div>
+    </template>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
